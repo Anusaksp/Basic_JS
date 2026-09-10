@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 2.1 Layout</title>
+    <style>
+        .container {
+            /* Restricts the width to force a line break, creating a 2x2 grid */
+            max-width: 450px; 
+        }
+        
+        .box {
+            width: 100px;
+            height: 100px;
+            border: 3px solid #000000;
+            display: inline-block;
+            font-family: sans-serif;
+            font-size: 14px;
+        }
+
+        /* Applies 50px margin to all sides for blocks 1 and 3 */
+        .typeA {
+            margin: 50px;
+        }
+
+        /* Type B inherits default 0 margin, but aligns properly via inline-block baseline */
+        .typeB {
+            margin: 0;
+        }
+
+        /* Adds the explicit extra 100px left margin specifically to block 4 */
+        #box-4 {
+            margin-left: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="box-1" class="box typeA">block1 typeA</div>
+        <div id="box-2" class="box typeB">block2 typeB</div>
+        <div id="box-3" class="box typeA">block3 typeA</div>
+        <div id="box-4" class="box typeB">block4 typeB</div>
+    </div>
+</body>
+</html>

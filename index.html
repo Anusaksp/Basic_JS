@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic_Js</title>
+    <script src="app.js"></script>
+</head>
+<body>
+    <h1>Basic_Js</h1>
+    <div>
+        <button onclick="massage();">คลิกสิ่</button>
+        <label for="x">input</label>
+        <input type="number" name="x" id="x">
+        <button onclick="pluse(document.getElementById('x').value)">ใส่ตัวเลข</button>
+
+        <label for="firstname">input name</label>
+        <input type="text" name="firstname" id="firstname" oninput="updateName(this.value)">
+        <br><br>
+
+        <button onclick="getInput()">กดเพื่อพิมพ์</button>
+        <br><br>
+        <button onclick="toggleCensor()">คลิกที่นี่</button>
+        <p> นี่คือ : <span id="ph">099-999-9999</span></p>
+        <br>
+        
+
+        <br>
+        <hr>
+
+        <p>ค่าที่กรอกคือ: <span id="showX"></span></p>
+        <p>ค่าที่พิมพ์: <span id="displayName"></span></p>
+        <p>wwww: <span id="showText"></span></p>
+    </div>
+</body>
+</html>

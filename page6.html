@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSS 2.3 Challenge</title>
+<style>
+  /* --- นี่คือโค้ดหลักเพื่อสร้างรูปร่าง --- */
+  .shape {
+    /* 1. กำหนดขนาดกว้าง 100px และยาว 100px (ตามกติกา) */
+    width: 100px;
+    height: 100px;
+    
+    background-image: linear-gradient(135deg, #eceff1, #03a9f4); 
+    
+    /* จัดข้อความภายในให้กึ่งกลาง */
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    color: #000;
+    font-size: 14px;
+    
+    /* 3. เอียง : 45 องศา (คำตอบของคำถาม) */
+    transform: rotate(45deg); 
+
+    /* เพิ่มพื้นที่เพื่อให้เห็นการหมุนได้ชัดเจน ไม่ทับองค์ประกอบอื่น */
+    margin-top: 50px; 
+    margin-left: 50px;
+  }
+</style>
+</head>
+<body>
+  <div class="shape">my shape</div>
+</body>
+</html>

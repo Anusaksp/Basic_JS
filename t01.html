@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Airline Ticket Booking</title>
+    <style>
+        body { font-family: "Times New Roman", Times, serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; border: 1px solid gray; }
+        th, td { border: 1px solid gray; padding: 20px; vertical-align: middle; }
+        th { font-size: 1.2em; padding: 15px; }
+
+        /* ตั๋วโดยสาร */
+        .ticket-container {
+            background-color: #fcf4dd; border-radius: 5px;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+            width: 85%; margin: 0 auto; padding-bottom: 20px;
+        }
+        .ticket-header {
+            background-color: #87ceeb; text-align: center; font-weight: bold; padding: 5px 0; margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .ticket-body { padding: 0 20px; }
+        .ticket-row {
+            border-bottom: 1px solid #888; padding-bottom: 5px; margin-bottom: 10px;
+            font-size: 14px; font-weight: bold;
+        }
+        .req-item {
+            font-size: 14px; font-weight: bold;
+            text-decoration: line-through; /* ขีดฆ่าเป็นค่าเริ่มต้น */
+        }
+
+        /* ปุ่มคลาสเที่ยวบิน */
+        .class-options { text-align: center; }
+        .btn-class {
+            display: block; width: 80%; margin: 15px auto; padding: 10px;
+            font-size: 24px; font-family: "Times New Roman", Times, serif;
+            border: none; border-radius: 5px; cursor: pointer;
+        }
+        .btn-economy { background-color: #87ceeb; }
+        .btn-business { background-color: #00ff7f; }
+        .btn-first { background-color: #fa8072; }
+        .btn-premium { background-color: #d3d3d3; }
+
+        /* ฟอร์มกรอกข้อมูล */
+        .form-row { margin-bottom: 10px; }
+        .form-label { display: inline-block; width: 110px; font-size: 14px; vertical-align: top; }
+        .form-input { width: 150px; font-family: "Times New Roman", Times, serif; }
+        textarea.form-input { resize: none; }
+        
+        .special-req-section { display: none; margin-top: 20px; }
+        .special-req-section h4 { margin-bottom: 10px; font-size: 16px; }
+        .checkbox-row { margin-bottom: 5px; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <table>
+        <tr>
+            <th>Airline Ticket Booking</th>
+            <th>Flight Class Options</th>
+            <th>Passenger Information</th>
+        </tr>
+        <tr>
+            <!-- คอลัมน์ 1: ตั๋ว -->
+            <td>
+                <div class="ticket-container">
+                    <div class="ticket-header" id="ticket-header">AIRLINE TICKET</div>
+                    <div class="ticket-body">
+                        <h3 id="display-class">(Flight Class)</h3>
+                        <div class="ticket-row" id="display-ticket">Ticket Number: </div>
+                        <div class="ticket-row" id="display-name">Title: Passenger Name</div>
+                        <div class="ticket-row" id="display-date">Travel Date: D/M/Y</div>
+                        <div class="ticket-row" id="display-address" style="border: none;">Address: House number, Sub-district, District, Province</div>
+                        <div style="border-bottom: 1px solid #888; margin-top: -10px; margin-bottom: 10px;"></div>
+                        
+                        <!-- เพิ่มส่วน Special Requirements ในตั๋ว (ซ่อนไว้ก่อน) -->
+                        <div id="ticket-special-reqs" style="display: none;">
+                            <div style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">Special Requirements:</div>
+                            <div class="req-item" id="req-wheelchair">&mdash; Wheelchair assistance</div>
+                            <div class="req-item" id="req-meal">&mdash; Special meal</div>
+                            <div class="req-item" id="req-baggage">&mdash; Extra baggage</div>
+                            <div style="border-bottom: 1px solid #888; margin-top: 5px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+
+            <!-- คอลัมน์ 2: ปุ่ม -->
+            <td class="class-options">
+                <button class="btn-class btn-economy" id="btn-economy">Economy</button>
+                <button class="btn-class btn-business" id="btn-business">Business</button>
+                <button class="btn-class btn-first" id="btn-first">First</button>
+                <button class="btn-class btn-premium" id="btn-premium">Premium</button>
+            </td>
+
+            <!-- คอลัมน์ 3: ฟอร์ม -->
+            <td style="padding-left: 40px; vertical-align: top;">
+                <div class="form-row">
+                    <label class="form-label">Ticket Number</label>
+                    <input class="form-input" type="text" id="Ticket">
+                </div>
+                <div class="form-row">
+                    <label class="form-label">Title</label>
+                    <select class="form-input" id="Title">
+                        <option value="Select" selected>Select</option>
+                        <option value="Mr.">Mr.</option>
+                        <option value="Mrs.">Mrs.</option>
+                        <option value="Miss.">Miss.</option>
+                        <option value="Ms.">Ms.</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label class="form-label">Passenger Name</label>
+                    <input class="form-input" type="text" id="PassengerName">
+                </div>
+                <div class="form-row">
+                    <label class="form-label">Travel Date</label>
+                    <input class="form-input" type="date" id="TravelDate">
+                </div>
+                <div class="form-row">
+                    <label class="form-label" style="border-bottom: 1px solid #ccc; padding-bottom: 10px; width: 260px;">
+                        <span style="display: inline-block; width: 110px;">Address</span>
+                        <textarea class="form-input" id="Address" rows="2" style="vertical-align: top;"></textarea>
+                    </label>
+                </div>
+
+                <!-- เพิ่มส่วนฟอร์ม Special Requirements (ซ่อนไว้ก่อน) -->
+                <div id="form-special-reqs" class="special-req-section">
+                    <h4>Special Requirements:</h4>
+                    <div class="checkbox-row"><input type="checkbox" id="chk-wheelchair"> <label for="chk-wheelchair">Wheelchair assistance</label></div>
+                    <div class="checkbox-row"><input type="checkbox" id="chk-meal"> <label for="chk-meal">Special meal</label></div>
+                    <div class="checkbox-row"><input type="checkbox" id="chk-baggage"> <label for="chk-baggage">Extra baggage</label></div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        const buttons = document.querySelectorAll('.btn-class');
+        const displayClass = document.getElementById('display-class');
+        const ticketHeader = document.getElementById('ticket-header');
+        const ticketSpecialReqs = document.getElementById('ticket-special-reqs');
+        const formSpecialReqs = document.getElementById('form-special-reqs');
+
+        // --- ส่วนการเปลี่ยนสีและเปิด/ปิด Special Requirements ---
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                buttons.forEach(b => b.style.borderBottom = 'none');
+                this.style.borderBottom = '6px solid #000';
+                displayClass.innerText = this.innerText.toUpperCase() + ' CLASS';
+
+                // เปลี่ยนสีแถบ AIRLINE TICKET ตามสีปุ่ม
+                const bgColor = window.getComputedStyle(this).backgroundColor;
+                ticketHeader.style.backgroundColor = bgColor;
+
+                // ตรวจสอบถ้ากด Premium ให้แสดงตัวเลือกเพิ่ม
+                if (this.innerText === 'Premium') {
+                    ticketSpecialReqs.style.display = 'block';
+                    formSpecialReqs.style.display = 'block';
+                } else {
+                    ticketSpecialReqs.style.display = 'none';
+                    formSpecialReqs.style.display = 'none';
+                    // Reset Checkbox เมื่อเปลี่ยนเป็นคลาสอื่น
+                    document.getElementById('chk-wheelchair').checked = false;
+                    document.getElementById('chk-meal').checked = false;
+                    document.getElementById('chk-baggage').checked = false;
+                    updateCheckboxes();
+                }
+            });
+        });
+
+        // --- ส่วนอัปเดตข้อมูลจากฟอร์ม ---
+        const inputs = ['Ticket', 'Title', 'PassengerName', 'TravelDate', 'Address'];
+        inputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', updateTicket);
+        });
+
+        function updateTicket() {
+            const ticket = document.getElementById('Ticket').value;
+            const title = document.getElementById('Title').value;
+            const name = document.getElementById('PassengerName').value;
+            const date = document.getElementById('TravelDate').value;
+            const address = document.getElementById('Address').value;
+
+            document.getElementById('display-ticket').innerText = 'Ticket Number: ' + (ticket || '');
+            const displayTitle = (title !== 'Select') ? title : 'Title:';
+            const displayName = name ? name : 'Passenger Name';
+            document.getElementById('display-name').innerText = `${displayTitle} ${displayName}`;
+            document.getElementById('display-date').innerText = 'Travel Date: ' + (date || 'D/M/Y');
+            document.getElementById('display-address').innerText = 'Address: ' + (address || 'House number, Sub-district, District, Province');
+        }
+
+        // --- ส่วนจัดการ Checkbox ขีดฆ่าข้อความ ---
+        const chks = ['chk-wheelchair', 'chk-meal', 'chk-baggage'];
+        const reqItems = {
+            'chk-wheelchair': document.getElementById('req-wheelchair'),
+            'chk-meal': document.getElementById('req-meal'),
+            'chk-baggage': document.getElementById('req-baggage')
+        };
+
+        function updateCheckboxes() {
+            chks.forEach(id => {
+                const isChecked = document.getElementById(id).checked;
+                reqItems[id].style.textDecoration = isChecked ? 'none' : 'line-through';
+            });
+        }
+
+        chks.forEach(id => {
+            document.getElementById(id).addEventListener('change', updateCheckboxes);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+        <div class="main-card">
+            <h2 style="display: flex; justify-content: center;">Software Engineering Online Course</h2>
+            <hr>
+            <div class="package-card">
+                <label>Package A : Automated Testing - ฿100</label>
+                <select name="" id="package_a">
+                    <option value="0" selected>0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+            <div class="package-card">
+                <label>Package B : Advanced Machine Learning - ฿200</label>
+                <select name="" id="package_b">
+                    <option value="0" selected>0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+            <div class="package-card">
+                <label>Package C : Cyber-Security Technology - ฿300</label>
+                <select name="" id="package_c">
+                    <option value="0" selected>0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+            <div class="package-card">
+                <label>Package D : Agile Business Analysis - ฿400</label>
+                <select name="" id="package_d">
+                    <option value="0" selected>0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+            <div class="form-input">
+                <label for="input_coupon">Coupon Code (SAVE10 for 10% off)</label>
+                <input type="text" id="input_coupon">
+            </div>
+            <div class="form-input">
+                <label for="input_name">Name (Required)</label>
+                <input type="text" id="input_name">
+            </div>
+            <div class="form-input">
+                <label for="input_email">Email (Required)</label>
+                <input type="email" id="input_email">
+            </div>
+            <div class="form-input">
+                <label for="input_phone">Phone (Required)</label>
+                <input type="text" id="input_phone">
+            </div>
+            <button type="button" id="submit-button">Proceed to Order Summary</button>
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                <div class="package-list"></div>
+                <div style="display: flex;"><strong>Total Price: </strong><span id="total-price"></span></div>
+                <div style="display: flex;"><strong>Discount:</strong> <span id="discount"></span></div>
+                <div style="display: flex;"><strong>Price after Discount:</strong> <span id="price-after"></span></div>
+                <div style="display: flex;"><strong>Tax (7%):</strong> <span id="tax"></span></div>
+                <div style="display: flex;"><strong>Net Price:</strong> <span id="net-price"></span></div>
+            </div>
+        </div>
+    </body>
+
+
+    <script>
+        let package_list
+        let coupon
+        let name
+        let email
+        let phone
+        let errorMessage
+
+
+        document.getElementById("submit-button").addEventListener("click", () => {
+            package_list = document.querySelectorAll(".package-card")
+            coupon = document.getElementById("input_coupon").value
+            name = document.getElementById("input_name").value
+            email = document.getElementById("input_email").value
+            phone = document.getElementById("input_phone").value
+            
+            showData();
+        })
+
+
+        function validate() {
+            if (name == "" || email == "" || phone == "") {
+                errorMessage = "please fill all required fields.";
+                return false;
+            }
+
+
+            let isExistedPackage = false;
+            let package_order = document.querySelector(".package-list");
+            let total_price = 0;
+
+
+            package_order.innerHTML = ""
+            for (let index = 0; index < package_list.length; index++) {
+                const package_value = package_list[index].children[1].value;
+                
+                if (package_value != 0) {
+                    let package_name = package_list[index].children[0].innerHTML;
+                    let price = (package_name.split("฿")[1]*package_value);
+                    total_price += price;
+                    package_order.innerHTML += package_name + " x " + package_value + " = ฿" + price.toFixed(2);
+
+
+                    if (package_order != "") {
+                        package_order.innerHTML += "<br>"
+                    }
+                    isExistedPackage = true;
+                }
+            }
+            if (!isExistedPackage) {
+                errorMessage = "please select at least one package.";
+                return false;
+            }
+
+
+            let discount = 0;
+            document.querySelector("#total-price").innerHTML = "฿" + total_price.toFixed(2)
+            if (coupon == "SAVE10") {
+                discount = (total_price * 0.1);
+                document.querySelector("#discount").innerHTML = "-฿" + discount.toFixed(2)
+                document.querySelector("#price-after").innerHTML = "฿" + (total_price - discount).toFixed(2)
+            } else {
+                document.querySelector("#discount").innerHTML = "-฿0.00"
+                document.querySelector("#price-after").innerHTML = "฿" + total_price.toFixed(2)
+            }
+            
+            document.querySelector("#tax").innerHTML = "฿" + (total_price * 0.07).toFixed(2)
+            document.querySelector("#net-price").innerHTML = "฿" + (total_price * 1.07).toFixed(2)
+
+
+            return true;
+        }
+
+
+        function showData() {
+            if(!validate()) {
+                alert(errorMessage);
+                return;
+            }
+            
+            document.querySelector(".order-summary").style.display = "grid";
+        }
+
+
+
+
+    </script>
+
+
+    <style>
+        :root {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        body {
+            background-color: aliceblue;
+            display: flex;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+
+        .main-card {
+            width: 600px;
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+
+
+        .package-card, .order-summary {
+            background-color: #f9f9f9;
+            border-radius: 0.5rem;
+            border: 1px solid #edf2f4;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+
+        .package-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem;
+        }
+
+
+        .package-card:hover {
+            background-color: #eff1f7;
+            transform: translateY(-1px);
+        }
+
+
+        .package-card label, .form-input label {
+            font-size: larger;
+            font-weight: bold;
+        }
+
+
+        .package-card select {
+            background-color: #f6f8fc;
+            border: 1px solid #d0d6dc;
+            height: 40px;
+            width: 60px;
+            font-size: large;
+            padding: 0.25rem;
+            border-radius: 0.25rem;
+        }
+
+
+        .form-input {
+            display: grid;
+            grid-template-rows: auto auto;
+            margin-bottom: 1rem;
+        }
+
+
+        .form-input input {
+            background-color: #f6f8fc;
+            border: 1px solid #e6eaee;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+
+        .form-input label {
+            font-size: larger;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+
+        #submit-button {
+            font-weight: bold;
+            font-size: larger;
+            background-color: #4dae50;
+            border: none;
+            color: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+
+
+        #submit-button:hover {
+            background-color: #429f48;
+            transform: translateY(-1px);
+        }
+
+
+        .order-summary {
+            display: none;
+            grid-template-rows: auto;
+            align-items: center;
+        }
+    </style>
+</html>

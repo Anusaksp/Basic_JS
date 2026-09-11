@@ -1,11 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>JavaScript 2.3</title>
+    
+    <!-- นำเข้าไลบรารี jQuery เพื่อใช้ทำเอฟเฟกต์ Slide -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <style>
+        body {
+            font-family: serif; /* ปรับฟอนต์ให้คล้ายในรูป */
+        }
+        h1 {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
+
+    <h1>JavaScript 2.3 : 3 points</h1>
     
+    <p>- คลิกที่ปุ่ม "คลิกที่นี่ JS 2.3" ข้อความที่กำหนดจะค่อยๆ สไลด์หายไป และกลับมาใหม่เมื่อคลิกปุ่มเดิมอีกครั้ง</p>
+    
+    <!-- ส่วนของข้อความที่ต้องการให้สไลด์หายไป/กลับมา -->
+    <div id="slideContent">
+        ระวัง! เนื้อหาส่วนนี้จะค่อยๆ สไลด์หายไป และกลับมาใหม่.<br>
+        ระวัง! เนื้อหาส่วนนี้จะค่อยๆ สไลด์หายไป และกลับมาใหม่.<br><br>
+    </div>
+    
+    <button id="slideButton">คลิกที่นี่ JS 2.3</button>
+    
+    <br><br>
+    <hr>
+    
+    <!-- เผื่อไว้สำหรับข้อ 2.4 ที่ปรากฏในรูปที่สอง -->
+    <h1>JavaScript 2.4 : 2 points</h1>
+
+    <script>
+        // เมื่อหน้าเว็บโหลดเสร็จ
+        $(document).ready(function(){
+            // เมื่อคลิกที่ปุ่มที่มี id="slideButton"
+            $("#slideButton").click(function(){
+                // ใช้คำสั่ง slideToggle() เพื่อสลับการแสดงผลแบบค่อยๆ สไลด์
+                // "slow" คือกำหนดให้ความเร็วในการสไลด์ช้าลงเพื่อให้เห็นเอฟเฟกต์ชัดเจน
+                $("#slideContent").slideToggle("slow");
+            });
+        });
+    </script>
+
 </body>
 </html>

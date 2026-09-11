@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 2.4</title>
+    <style>
+        body {
+            font-family: serif; /* ปรับฟอนต์ให้คล้ายในรูป */
+        }
+        h1 {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>JavaScript 2.4 : 2 points</h1>
+    
+    <p>- คลิกที่ปุ่ม "คลิกที่นี่ JS 2.4" จะทำการตรวจสอบว่า checkbox ถูกเลือกหรือไม่ และแสดงข้อความแจ้งเตือน</p>
+    
+    <input type="checkbox" id="foodCheckbox" value="แยมโรล">
+    <label for="foodCheckbox">แยมโรล</label>
+    <br><br>
+    
+    <button onclick="checkStatus()">คลิกที่นี่ JS 2.4</button>
+
+    <script>
+        function checkStatus() {
+            // ดึง element ของ checkbox มาตรวจสอบ
+            var checkbox = document.getElementById("foodCheckbox");
+            
+            // เช็คว่าถูกเลือก (checked) หรือไม่
+            if (checkbox.checked) {
+                alert("คุณเลือก แยมโรล");
+            } else {
+                alert("คุณไม่ได้เลือก แยมโรล");
+            }
+        }
+    </script>
+
+</body>
+</html>
